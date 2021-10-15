@@ -32,7 +32,7 @@ export default function ContactForm() {
         alert(`Это имя ${name} уже есть в списке`);
         return;
       } else {
-        dispatch(addContact(name, number));
+        dispatch(addContact({name, number}));
         setName('');
         setNumber('');
       }

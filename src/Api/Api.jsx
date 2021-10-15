@@ -11,6 +11,5 @@ export async function addContactQuery(contact) {
   return data;
 }
 export async function delContactQuery(contactId) {
-  const {data} = await axios.delete(`${BASE_URL}/contacts/${contactId}`);
-  return data;
+  await axios.delete(`${BASE_URL}/contacts/${contactId}`);
 }
