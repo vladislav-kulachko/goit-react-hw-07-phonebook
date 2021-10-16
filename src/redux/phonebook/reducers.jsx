@@ -14,8 +14,8 @@ import {delContact, addContact, getContacts} from './operations';
 const items = createReducer([], {
   [getContacts.fulfilled]: (state, {payload}) => payload,
   [addContact.fulfilled]: (state, {payload}) => [...state, payload],
-  [delContact.fulfilled]: (state, action) =>
-    state.filter(contact => contact.id !== action.payload),
+  [delContact.fulfilled]: (state, {payload}) =>
+    state.filter(contact => contact.id !== payload),
 });
 const isLoading = createReducer(false, {
   [getContacts.pending]: () => true,
@@ -31,7 +31,7 @@ const isLoading = createReducer(false, {
 const error = createReducer(null, {
   [addContact.rejected]: (state, {payload}) => payload,
   [addContact.pending]: () => null,
-  [delContact.rejected]: (state, {error}) => error.message,
+  [delContact.rejected]: (state, {payload}) => payload,
   [delContact.pending]: () => null,
   [getContacts.rejected]: (state, {payload}) => payload,
   [getContacts.pending]: () => null,

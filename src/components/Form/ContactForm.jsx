@@ -2,14 +2,40 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useState} from 'react';
 import s from './ContactForm.module.scss';
 import {addContact} from '../../redux/phonebook/operations';
-import {getContacts} from '../../redux/phonebook/selectors';
+import {getAllContacts, getError} from '../../redux/phonebook/selectors';
+import {toast, Flip, Bounce} from 'react-toastify';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const error = useSelector(getError);
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(getAllContacts);
   const dispatch = useDispatch();
+
+  const addOneContact = async (name, number) => {
+    try {
+      const addedContact = await dispatch(addContact({name, number})).unwrap();
+      toast.success(
+        `Succsess! Added contact with name: "${addedContact.name}"`,
+        {
+          theme: 'colored',
+          position: 'top-center',
+          autoClose: 3000,
+          transition: Bounce,
+          toastId: 5,
+        },
+      );
+    } catch (err) {
+      toast.error(`Adding contact failed with error: "${error}"`, {
+        theme: 'colored',
+        position: 'top-center',
+        autoClose: 5000,
+        transition: Flip,
+        toastId: 6,
+      });
+    }
+  };
 
   const handlerContactAdd = e => {
     switch (e.target.name) {
@@ -32,7 +58,7 @@ export default function ContactForm() {
         alert(`Это имя ${name} уже есть в списке`);
         return;
       } else {
-        dispatch(addContact({name, number}));
+        addOneContact(name, number);
         setName('');
         setNumber('');
       }
