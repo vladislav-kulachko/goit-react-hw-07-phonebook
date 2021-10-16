@@ -25,15 +25,14 @@ export default function ContactList() {
         position: 'top-center',
         autoClose: 3000,
         transition: Bounce,
-        toastId: 1,
       });
-    } catch {
-      toast.error(`Failed delete with error: "${error}"`, {
+    } catch (err) {
+      toast.error(`Failed delete with error: "${err}"`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,
         transition: Flip,
-        toastId: 2,
+        toastId: 1,
       });
     }
   };
@@ -44,21 +43,21 @@ export default function ContactList() {
         try {
           await dispatch(getContacts()).unwrap();
           setReload(false);
-          toast.success(`Succsess! Download all contacts!`, {
+          toast.success(`Succsess! Downloaded all contacts!`, {
             theme: 'colored',
             position: 'top-center',
             autoClose: 3000,
             transition: Bounce,
-            toastId: 3,
+            toastId: 2,
           });
-        } catch {
+        } catch (err) {
           setReload(false);
-          toast.error(`Failed download contacts with error: ${error}`, {
+          toast.error(`Failed download contacts with error: ${err}`, {
             theme: 'colored',
             position: 'top-center',
             autoClose: 5000,
             transition: Flip,
-            toastId: 4,
+            toastId: 3,
           });
         }
       }

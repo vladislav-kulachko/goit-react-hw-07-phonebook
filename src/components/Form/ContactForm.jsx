@@ -9,7 +9,6 @@ export default function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const error = useSelector(getError);
-
   const contacts = useSelector(getAllContacts);
   const dispatch = useDispatch();
 
@@ -23,16 +22,15 @@ export default function ContactForm() {
           position: 'top-center',
           autoClose: 3000,
           transition: Bounce,
-          toastId: 5,
         },
       );
-    } catch (err) {
+    } catch {
       toast.error(`Adding contact failed with error: "${error}"`, {
         theme: 'colored',
         position: 'top-center',
         autoClose: 5000,
         transition: Flip,
-        toastId: 6,
+        toastId: 5,
       });
     }
   };

@@ -11,8 +11,7 @@ export const getContacts = createAsyncThunk(
     try {
       return await getContactsQuery();
     } catch (err) {
-      let error = err;
-      return rejectWithValue(error.message);
+      return rejectWithValue(err.message);
     }
   },
 );
@@ -23,8 +22,7 @@ export const addContact = createAsyncThunk(
     try {
       return await addContactQuery(contact);
     } catch (err) {
-      let error = err;
-      return rejectWithValue(error.message);
+      return rejectWithValue(err.message);
     }
   },
 );
@@ -36,8 +34,7 @@ export const delContact = createAsyncThunk(
       await delContactQuery(id);
       return id;
     } catch (err) {
-      let error = err;
-      return rejectWithValue(error.message);
+      return rejectWithValue(err.message);
     }
   },
 );

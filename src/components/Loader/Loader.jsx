@@ -1,7 +1,6 @@
 import Loader from 'react-loader-spinner';
 import s from './Loader.module.scss';
 export default function Spinner({loading}) {
-  console.log(loading);
   return (
     <>
       <li className={s.spinner}>
