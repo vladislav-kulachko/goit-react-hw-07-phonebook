@@ -4,19 +4,13 @@ import {addFilterValue} from './actions';
 
 import {delContact, addContact, getContacts} from './operations';
 
-// {
-//   contacts: {
-//     items: [],
-//     filter: ''
-//   }
-// }
-
-const items = createReducer([], {
-  [getContacts.fulfilled]: (state, {payload}) => payload,
-  [addContact.fulfilled]: (state, {payload}) => [...state, payload],
-  [delContact.fulfilled]: (state, {payload}) => [
-    ...state.filter(contact => contact.id !== payload),
-  ],
+const items = createReducer([], builder => {
+  builder
+    .addCase(getContacts.fulfilled, (state, {payload}) => payload)
+    .addCase(addContact.fulfilled, (state, {payload}) => [...state, payload])
+    .addCase(delContact.fulfilled, (state, {payload}) =>
+      state.filter(({id}) => id !== payload),
+    );
 });
 const isLoading = createReducer(false, {
   [getContacts.pending]: () => true,
